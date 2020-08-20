@@ -1,0 +1,52 @@
+package com.todo.todoBackend.service;
+
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
+import com.todo.todoBackend.beans.Todo;
+
+//This is a component, as we do not want instances of this, Rather Spring will manage the component.
+//@Component
+
+//Since this is a business Service. So, Service is a type of component in Spring.
+@Service
+public class TodoHardcodedService {
+	
+	private static List<Todo> todos = new ArrayList<Todo>();
+	private static int idCounter = 0;
+	
+	static {
+		todos.add(new Todo(++idCounter, "1st Todo", "Learn React", new Date(), false));
+		todos.add(new Todo(++idCounter, "2nd Todo", "Learn Docker", new Date(), false));
+		todos.add(new Todo(++idCounter, "3rd Todo", "Learn MicroService Architecture", new Date(), false));
+	}
+	
+	public List<Todo> findAll(){
+		return todos;
+	}
+	
+	public Todo deleteById(long id) {
+		Todo todo = findById(id);
+		if(todo==null) return null;
+		
+		if(todos.remove(todo)) {
+			return todo;
+		}
+		return null;
+	}
+
+	private Todo findById(long id) {
+		for(Todo todo: todos) {
+			if(todo.getId()==id) {
+				return todo;
+			}
+		}
+		return null;
+	}
+
+}
