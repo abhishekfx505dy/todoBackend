@@ -30,6 +30,24 @@ public class TodoHardcodedService {
 		return todos;
 	}
 	
+	//This backend service method is called by the front end to save  a todo
+	public Todo save(Todo todo) {
+		
+		//If its a new todo
+		if (todo.getId() == -1 || todo.getId() == 0) {
+			
+			todo.setId(++idCounter);
+			todos.add(todo);
+			
+		}
+		// If todo is already present and is being updated
+		else {
+			deleteById(todo.getId());
+			todos.add(todo);
+		}
+		return todo;
+	}
+	
 	public Todo deleteById(long id) {
 		Todo todo = findById(id);
 		if(todo==null) return null;
@@ -40,7 +58,7 @@ public class TodoHardcodedService {
 		return null;
 	}
 
-	private Todo findById(long id) {
+	public Todo findById(long id) {
 		for(Todo todo: todos) {
 			if(todo.getId()==id) {
 				return todo;

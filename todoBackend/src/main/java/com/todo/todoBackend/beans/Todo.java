@@ -11,6 +11,11 @@ public class Todo {
 	private boolean isDone;
 	
 	
+	//No-arg constructtor
+	public Todo() {
+		
+	}
+	
 	
 	//Constructor
 	public Todo(long id, String username, String description, Date targerDate, boolean isDone) {
